@@ -3,7 +3,7 @@ import sqlite3
 from functools import wraps
 from flask import Flask, render_template, request, redirect, url_for, session
 
-app = Flask(__name__, template_folder=".")
+app = Flask(__name__)
 
 # 🔐 SCHIMBĂ ASTA (obligatoriu)
 app.secret_key = "schimba_asta_cu_ceva_foarte_secret"
@@ -244,3 +244,4 @@ if __name__ == "__main__":
         debug=True
 
     )
+
