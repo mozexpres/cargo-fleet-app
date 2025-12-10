@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{% if cursa %}Editează cursă{% else %}Adaugă cursă{% endif %}</h2>
+
+<form method="post">
+  <div>
+    <label>Loc încărcare:</label><br>
+    <input type="text" name="loc_inc" value="{{ cursa.loc_inc if cursa else '' }}" required>
+  </div>
+
+  <div>
+    <label>Loc descărcare:</label><br>
+    <input type="text" name="loc_desc" value="{{ cursa.loc_desc if cursa else '' }}" required>
+  </div>
+
+  <div>
+    <label>Data & ora încărcare:</label><br>
+    <input type="datetime-local" name="data_inc" value="{{ cursa.data_inc if cursa else '' }}" required>
+  </div>
+
+  <div>
+    <label>Data & ora descărcare:</label><br>
+    <input type="datetime-local" name="data_desc" value="{{ cursa.data_desc if cursa else '' }}" required>
+  </div>
+
+  <div>
+    <label>Paleți la schimb:</label><br>
+    {% set pal = cursa.paleti if cursa else 'Nu' %}
+    <select name="paleti">
+      <option value="Nu" {% if pal == 'Nu' %}selected{% endif %}>Nu</option>
+      <option value="Da" {% if pal == 'Da' %}selected{% endif %}>Da</option>
+    </select>
+  </div>
+
+  <div>
+    <label>Număr paleți la schimb:</label><br>
+    <input type="number" name="nr_paleti" value="{{ cursa.nr_paleti if cursa else '0' }}">
+  </div>
+
+  <div>
+    <label>Preț cursă:</label><br>
+    <input type="text" name="pret" value="{{ cursa.pret if cursa else '' }}" required>
+  </div>
+
+  <div>
+    <label>Firmă care face cursa:</label><br>
+    <input type="text" name="firma" value="{{ cursa.firma if cursa else '' }}" required>
+  </div>
+
+  <div>
+    <label>Nr auto firmă:</label><br>
+    <input type="text" name="nr_auto" value="{{ cursa.nr_auto if cursa else '' }}" required>
+  </div>
+
+  <div>
+    <label>Status cursă:</label><br>
+    {% set st = cursa.status if cursa else 'Neplanificată' %}
+    <select name="status">
+      <option value="Neplanificată" {% if st == 'Neplanificată' %}selected{% endif %}>Neplanificată</option>
+      <option value="Planificată" {% if st == 'Planificată' %}selected{% endif %}>Planificată</option>
+      <option value="În curs" {% if st == 'În curs' %}selected{% endif %}>În curs</option>
+      <option value="Finalizată" {% if st == 'Finalizată' %}selected{% endif %}>Finalizată</option>
+      <option value="Anulată" {% if st == 'Anulată' %}selected{% endif %}>Anulată</option>
+    </select>
+  </div>
+
+  <div>
+    <label>Observații:</label><br>
+    <textarea name="obs" rows="3" cols="40">{{ cursa.obs if cursa else '' }}</textarea>
+  </div>
+
+  <div style="margin-top:10px;">
+    <button type="submit">Salvează</button>
+    <a class="btn" href="{{ url_for('lista_curse') }}">Renunță</a>
+  </div>
+</form>
+{% endblock %}
